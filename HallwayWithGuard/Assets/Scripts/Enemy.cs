@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyControl : MonoBehaviour {
-    public Camera nmeCam;
-    public float lineofSight = 50f;
-    public float radius = 10f;
+public class Enemy : MonoBehaviour {
 
-    Transform target;
+    //public Camera nmeCam;
+    public float lineofSight = 50f;
+    public float radius = 5f;
+
+    public Transform target;
     NavMeshAgent agent;
 
     private RaycastHit hit;
@@ -26,7 +27,7 @@ public class EnemyControl : MonoBehaviour {
 
         if (distance <= radius)
         {
-            agent.SetDestination(target.position);
+            agent.destination = target.transform.position;
 
             if (distance <= agent.stoppingDistance)
             {
@@ -42,6 +43,7 @@ public class EnemyControl : MonoBehaviour {
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotate, Time.deltaTime * 5f);
     }
 
+    /*
     void checkRaycast()
     {
         if (Physics.Raycast(nmeCam.transform.position, nmeCam.transform.forward, out hit, lineofSight))
@@ -49,11 +51,11 @@ public class EnemyControl : MonoBehaviour {
             Debug.Log(hit.transform.tag);
         }
     }
+    */
 
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, radius);
     }
-
 }
