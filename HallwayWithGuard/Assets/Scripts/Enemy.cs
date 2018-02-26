@@ -6,28 +6,27 @@ using UnityEngine.AI;
 public class Enemy : MonoBehaviour {
 
     //public Camera nmeCam;
-    public float lineofSight = 50f;
-    public float radius = 5f;
-
-    public Transform target;
+    //public float lineofSight = 50f;
+    public float radius = 10f;
+    public GameObject target;
     NavMeshAgent agent;
 
-    private RaycastHit hit;
-
+    // Use this for initialization
     void Start()
     {
-        target = PlayerManager.instance.player.transform;
         agent = GetComponent<NavMeshAgent>();
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        float distance = Vector3.Distance(target.position, transform.position);
+        float distance = Vector3.Distance(target.transform.position, transform.position);
 
         if (distance <= radius)
         {
-            agent.destination = target.transform.position;
+            //agent.destination = target.transform.position;
+            agent.SetDestination(target.transform.position);
 
             if (distance <= agent.stoppingDistance)
             {
@@ -36,9 +35,17 @@ public class Enemy : MonoBehaviour {
         }
     }
 
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, radius);
+        Vector3 forward = transform.TransformDirection(Vector3.forward) * 10;
+        Debug.DrawRay(transform.position, forward, Color.green);
+    }
+
     void faceTarget()
     {
-        Vector3 direction = (target.position - transform.position).normalized;
+        Vector3 direction = (target.transform.position - transform.position).normalized;
         Quaternion lookRotate = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotate, Time.deltaTime * 5f);
     }
@@ -52,10 +59,4 @@ public class Enemy : MonoBehaviour {
         }
     }
     */
-
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, radius);
-    }
 }
