@@ -17,6 +17,7 @@ public class Enemy : MonoBehaviour
     private float waitTime;
     private int randomLocation;
     private bool distracted = true;
+    private bool patrol = true;
 
     public GameObject target;
     public GameObject glowStick;
@@ -87,9 +88,14 @@ public class Enemy : MonoBehaviour
     {
         agent.SetDestination(Location[randomLocation].transform.position);
 
-        Invoke("changeLoc", 5f);
+        if (patrol)
+        {
+            patrol = false;
+            Invoke("changeLoc", 5f);
+        }
+        
         /*transform.position = Vector3.MoveTowards(transform.position, Location[randomLocation].position, speed * Time.deltaTime);
-
+        */
         if (Vector3.Distance(transform.position, Location[randomLocation].position) < 0.2f)
         {
             if (waitTime <= 0)
@@ -102,7 +108,6 @@ public class Enemy : MonoBehaviour
                 waitTime -= Time.deltaTime;
             }
         }
-        */
     }
 
     private void OnCollisionEnter(Collision other)
@@ -115,13 +120,10 @@ public class Enemy : MonoBehaviour
 
     void changeLoc()
     {
-        Debug.Log("RUNNING");
-        int originalposition = randomLocation;
-        while(originalposition == randomLocation)
-        {
-            Debug.Log("SAME");
-            randomLocation = Random.Range(0, Location.Length);
-        }
+        //Debug.Log("RUNNING");
+        //int originalposition = randomLocation;
+        randomLocation = Random.Range(0, Location.Length);
+        patrol = true;
     }
 
     private void OnDrawGizmosSelected()
