@@ -140,6 +140,7 @@ public class Enemy : MonoBehaviour
         Quaternion lookRotate = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotate, Time.deltaTime * 5f);
     }
+    
 
     private void OnTriggerEnter(Collider other)
     {
@@ -149,6 +150,17 @@ public class Enemy : MonoBehaviour
             Destroy(other.gameObject, 2f);
         }
     }
+    
+    /*
+    private void OnCollisionStay(Collision collision)
+    {
+        if (collision.gameObject.tag == "glowstick")
+        {
+            Invoke("distraction", 2f);
+            Destroy(collision.gameObject, 2f);
+        }
+    }
+    */
 
     void distraction()
     {
