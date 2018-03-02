@@ -40,12 +40,13 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        float distance = Vector3.Distance(target.transform.position, transform.position);
         if (GameObject.Find("glow(Clone)") != null)
         {
             distracted = true;
             //Debug.Log("TRUE");
         }
-        float distance = Vector3.Distance(target.transform.position, transform.position);
+        
         if (distracted)
         {
             glowStick = GameObject.Find("glow(Clone)");

@@ -94,8 +94,6 @@ public class PlayerControl : MonoBehaviour {
     
     void OnTriggerEnter(Collider collision)
     {
-        if (collision.gameObject.tag == "FIN")
-            Debug.Log("YOU HERE");
         if (collision.gameObject.tag == "FIN" &&  coinget)
         {
             Coingot.text = "You win!";
@@ -106,6 +104,7 @@ public class PlayerControl : MonoBehaviour {
             Debug.Log("COIN GOT");
             caudio.clip = coinnoise;
             caudio.PlayOneShot(caudio.clip);
+            caudio.volume = 1f;
             coinget = true;
             Coingot.text = "You got the coin! Now go back.";
             Destroy(collision.gameObject);
