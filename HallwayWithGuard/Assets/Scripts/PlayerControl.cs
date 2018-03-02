@@ -25,8 +25,9 @@ public class PlayerControl : MonoBehaviour {
 	}
 
 	public RotationAxis axes = RotationAxis.MouseX;
+    public RotationAxis axes2 = RotationAxis.MouseY;
 
-	public float minV = -45.0f;
+    public float minV = -45.0f;
 	public float maxV = 45.0f;
 
 	public float Horizontal = 10.0f;
@@ -40,6 +41,7 @@ public class PlayerControl : MonoBehaviour {
         charCtrl = GetComponent<CharacterController>();
         hasGS = 2;
         coinget = false;
+        caudio = GetComponent<AudioSource>();
     }
     
 
@@ -54,7 +56,20 @@ public class PlayerControl : MonoBehaviour {
 
 			transform.localEulerAngles = new Vector3 (rotationX, rotationY, 0);
 		}
-        
+        if (axes2 == RotationAxis.MouseX)
+        {
+            transform.Rotate(0, Input.GetAxis("Mouse X") * Horizontal, 0);
+        }
+        else if (axes2 == RotationAxis.MouseY)
+        {
+            rotationX -= Input.GetAxis("Mouse Y") * Vertical;
+            rotationX = Mathf.Clamp(rotationX, minV, maxV);
+
+            float rotationY = transform.localEulerAngles.y;
+
+            transform.localEulerAngles = new Vector3(rotationX, rotationY, 0);
+        }
+
         if (hasGS>0)
         {
             //glowstick.transform.position = transform.position;
@@ -76,7 +91,7 @@ public class PlayerControl : MonoBehaviour {
         //gsCounter.text = "Glowsticks left: " + hasGS;
 
     }
-
+    
     void OnTriggerEnter(Collider collision)
     {
         if (collision.gameObject.tag == "FIN")
@@ -96,6 +111,7 @@ public class PlayerControl : MonoBehaviour {
             Destroy(collision.gameObject);
         }
     }
+    
 
     void restartGame()
     {

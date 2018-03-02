@@ -208,7 +208,6 @@ GameObject:
   - component: {fileID: 14969553}
   - component: {fileID: 14969552}
   - component: {fileID: 14969551}
-  - component: {fileID: 14969555}
   - component: {fileID: 14969556}
   m_Layer: 0
   m_Name: Camera
@@ -280,28 +279,6 @@ Transform:
   m_Father: {fileID: 1862487983}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &14969555
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 14969550}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fdf5d52be8c523a45aad60be33afecfd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  glowstickPrefab: {fileID: 0}
-  force: 0
-  gsCounter: {fileID: 0}
-  Coingot: {fileID: 0}
-  coinnoise: {fileID: 0}
-  axes: 2
-  minV: -45
-  maxV: 45
-  Horizontal: 10
-  Vertical: 10
-  rotationX: 0
 --- !u!82 &14969556
 AudioSource:
   m_ObjectHideFlags: 0
@@ -4136,7 +4113,7 @@ SphereCollider:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1397067154}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 5.09
@@ -5361,7 +5338,7 @@ GameObject:
   - component: {fileID: 1810875379}
   - component: {fileID: 1810875378}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5611,6 +5588,7 @@ MonoBehaviour:
   Coingot: {fileID: 414041249}
   coinnoise: {fileID: 8300000, guid: 2329fd62a7b8d6945b8ebba237bd2387, type: 3}
   axes: 1
+  axes2: 2
   minV: -45
   maxV: 45
   Horizontal: 10
