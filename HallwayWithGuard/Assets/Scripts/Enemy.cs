@@ -46,6 +46,10 @@ public class Enemy : MonoBehaviour
             distracted = true;
             //Debug.Log("TRUE");
         }
+        else
+        {
+            distracted = false;
+        }
         
         if (distracted)
         {

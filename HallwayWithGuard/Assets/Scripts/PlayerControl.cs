@@ -78,7 +78,7 @@ public class PlayerControl : MonoBehaviour {
             {
                 hasGS--;
                 glowstick = Instantiate(glowstickPrefab) as GameObject;
-                glowstick.transform.position = transform.position + new Vector3(0f,1f,0f);
+                glowstick.transform.position = transform.position + new Vector3(0f,.5f,0f);
                 //Debug.Log("INSTANTIATED");
                 Rigidbody rb = glowstick.GetComponent<Rigidbody>();
                 //rb.AddForce(transform.forward * force, ForceMode.VelocityChange);
