@@ -43,7 +43,7 @@ public class Enemy : MonoBehaviour
         if (GameObject.Find("glow(Clone)") != null)
         {
             distracted = true;
-            Debug.Log("TRUE");
+            //Debug.Log("TRUE");
         }
         float distance = Vector3.Distance(target.transform.position, transform.position);
         if (distracted)
@@ -63,7 +63,7 @@ public class Enemy : MonoBehaviour
                 }
                 else if (distance <= radius)
                 {
-                    Debug.Log("chasing player...2");
+                    //Debug.Log("chasing player...2");
                     //agent.destination = target.transform.position;
                     agent.SetDestination(target.transform.position);
                     if (distance <= agent.stoppingDistance)
@@ -73,7 +73,7 @@ public class Enemy : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("patrolling...2");
+                    //Debug.Log("patrolling...2");
                     patrolling();
                 }
             }
@@ -81,7 +81,7 @@ public class Enemy : MonoBehaviour
         }
         else if (distance <= radius)
         {
-            Debug.Log("chasing player...");
+            //Debug.Log("chasing player...");
             //agent.destination = target.transform.position;
             agent.SetDestination(target.transform.position);
             if (distance <= agent.stoppingDistance)
@@ -91,7 +91,7 @@ public class Enemy : MonoBehaviour
         }
         else
         {
-            Debug.Log("patrolling...");
+            //Debug.Log("patrolling...");
             patrolling();
         }
     }

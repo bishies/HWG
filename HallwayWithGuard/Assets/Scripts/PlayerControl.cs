@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerControl : MonoBehaviour {
 
@@ -9,7 +11,12 @@ public class PlayerControl : MonoBehaviour {
     public GameObject glowstickPrefab;
     public float force;
     private int hasGS;
+    private bool coinget;
     Rigidbody rb;
+    public Text gsCounter;
+    public Text Coingot;
+    public AudioClip coinnoise;
+    AudioSource caudio;
 
     public enum RotationAxis
 	{
@@ -32,13 +39,12 @@ public class PlayerControl : MonoBehaviour {
     {
         charCtrl = GetComponent<CharacterController>();
         hasGS = 2;
+        coinget = false;
     }
     
 
     void Update () {
-        
-
-		if (axes == RotationAxis.MouseX) {
+        if (axes == RotationAxis.MouseX) {
 			transform.Rotate (0, Input.GetAxis ("Mouse X") * Horizontal, 0);
 		} else if (axes == RotationAxis.MouseY) {
 			rotationX -= Input.GetAxis ("Mouse Y") * Vertical;
@@ -52,20 +58,47 @@ public class PlayerControl : MonoBehaviour {
         if (hasGS>0)
         {
             //glowstick.transform.position = transform.position;
-            Debug.Log("CAN INSTANTIATE");
+            //Debug.Log("CAN INSTANTIATE");
             if (Input.GetMouseButtonDown(0))
             {
                 hasGS--;
-                glowstick = Instantiate(glowstickPrefab) as GameObject;
-                glowstick.transform.position = transform.position + new Vector3(0f,3f,0f);
-                Debug.Log("INSTANTIATED");
+                glowstick = Instantiate(glowstickPrefab, transform.position + new Vector3(0f, 1f, 0f), transform.rotation) as GameObject;
+                //glowstick.transform.position = transform.position + new Vector3(0f,1f,0f);
+                //Debug.Log("INSTANTIATED");
                 Rigidbody rb = glowstick.GetComponent<Rigidbody>();
                 //rb.AddForce(transform.forward * force, ForceMode.VelocityChange);
-                rb.velocity = transform.forward * 20f;
+                rb.velocity = transform.forward * force;
                 rb.AddTorque(0f, 0f, 20f, ForceMode.Impulse);
             }
 
         }
 
+        //gsCounter.text = "Glowsticks left: " + hasGS;
+
+    }
+
+    void OnTriggerEnter(Collider collision)
+    {
+        if (collision.gameObject.tag == "FIN")
+            Debug.Log("YOU HERE");
+        if (collision.gameObject.tag == "FIN" &&  coinget)
+        {
+            Coingot.text = "You win!";
+            Invoke("restartGame", 3f);
+        }
+        if(collision.gameObject.tag == "Coin")
+        {
+            Debug.Log("COIN GOT");
+            caudio.clip = coinnoise;
+            caudio.PlayOneShot(caudio.clip);
+            coinget = true;
+            Coingot.text = "You got the coin! Now go back.";
+            Destroy(collision.gameObject);
+        }
+    }
+
+    void restartGame()
+    {
+        SceneManager.LoadScene(0);
     }
 }
